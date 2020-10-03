@@ -79,3 +79,39 @@ summary(hwy_loess)
 # drop.square:  FALSE 
 
 mpg %>% ggplot(aes(hwy, displ))+geom_point()+geom_smooth()
+
+# categorical x, numerical y
+
+mpg %>% ggplot(aes(class, cty))+geom_boxplot()
+
+# 1.ANOVA
+
+class_hwy <- lm(hwy~class, data = mpg)
+summary(class_hwy)
+# Call:
+#   lm(formula = hwy ~ class, data = mpg)
+# 
+# Residuals:
+#   Min      1Q  Median      3Q     Max 
+# -8.1429 -1.8788 -0.2927  1.1803 15.8571 
+# 
+# Coefficients:
+#   Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)       24.800      1.507  16.454  < 2e-16 ***
+#   classcompact       3.498      1.585   2.206   0.0284 *  
+#   classmidsize       2.493      1.596   1.561   0.1198    
+# classminivan      -2.436      1.818  -1.340   0.1815    
+# classpickup       -7.921      1.617  -4.898 1.84e-06 ***
+#   classsubcompact    3.343      1.611   2.075   0.0391 *  
+#   classsuv          -6.671      1.567  -4.258 3.03e-05 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 3.37 on 227 degrees of freedom
+# Multiple R-squared:  0.6879,	Adjusted R-squared:  0.6797 
+# F-statistic: 83.39 on 6 and 227 DF,  p-value: < 2.2e-16
+
+pars <- par(mfrow=c(2,2))
+plot(class_cty)
+par(pars)
+
