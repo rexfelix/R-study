@@ -115,3 +115,35 @@ pars <- par(mfrow=c(2,2))
 plot(class_cty)
 par(pars)
 
+# numerical x, categorical y
+
+chall <- read.csv('https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/challenger.csv',header = T, sep = ',')
+chall <- tbl_df(chall)
+glimpse(chall)
+chall %>% ggplot(aes(temperature, distress_ct))+geom_point()
+chall %>% ggplot(aes(factor(distress_ct), temperature))+geom_boxplot()
+chall_glm <- glm(cbind(distress_ct,o_ring_ct-distress_ct)~temperature,data = chall,family = 'binomial')
+summary(chall_glm)
+# Call:
+#   glm(formula = cbind(distress_ct, o_ring_ct - distress_ct) ~ temperature, 
+#       family = "binomial", data = chall)
+# 
+# Deviance Residuals: 
+#   Min       1Q   Median       3Q      Max  
+# -0.7526  -0.5533  -0.3388  -0.1901   1.5388  
+# 
+# Coefficients:
+#   Estimate Std. Error z value Pr(>|z|)   
+# (Intercept)  8.81692    3.60697   2.444  0.01451 * 
+#   temperature -0.17949    0.05822  -3.083  0.00205 **
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for binomial family taken to be 1)
+# 
+# Null deviance: 20.706  on 22  degrees of freedom
+# Residual deviance:  9.527  on 21  degrees of freedom
+# AIC: 24.865
+# 
+# Number of Fisher Scoring iterations: 6
+
