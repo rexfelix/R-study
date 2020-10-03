@@ -58,3 +58,24 @@ plot(hwy_lm)
 par(oprs)
 
 MASS::lqs(stack.loss~.,data=stackloss)
+
+hwy_loess <- loess(hwy~displ, data = mpg)
+summary(hwy_loess)
+# Call:
+#   loess(formula = hwy ~ displ, data = mpg)
+# 
+# Number of Observations: 234 
+# Equivalent Number of Parameters: 4.57 
+# Residual Standard Error: 3.372 
+# Trace of smoother matrix: 4.98  (exact)
+# 
+# Control settings:
+#   span     :  0.75 
+# degree   :  2 
+# family   :  gaussian
+# surface  :  interpolate	  cell = 0.2
+# normalize:  TRUE
+# parametric:  FALSE
+# drop.square:  FALSE 
+
+mpg %>% ggplot(aes(hwy, displ))+geom_point()+geom_smooth()
