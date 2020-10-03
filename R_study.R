@@ -6,7 +6,7 @@ x <- factor(x, levels = c(0,1), labels = c('no', 'yes'))
 x
 (t <- table(x))
 prop.table(t)
-binom.test(x = length(x[x=='yes']), n=length(x), p=0.5, alternative = 'two.sided')
+(res <- binom.test(x = length(x[x=='yes']), n=length(x), p=0.5, alternative = 'two.sided'))
 # Exact binomial test
 # 
 # data:  length(x[x == "yes"]) and length(x)
@@ -17,4 +17,7 @@ binom.test(x = length(x[x=='yes']), n=length(x), p=0.5, alternative = 'two.sided
 # sample estimates:
 #   probability of success 
 # 0.48 
+
+(res$conf.int[2] - res$conf.int[1])/2
+# 0.1016024 오차한계
 
