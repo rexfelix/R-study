@@ -147,3 +147,8 @@ summary(chall_glm)
 # 
 # Number of Fisher Scoring iterations: 6
 
+predict(chall_glm, data.frame(temperature=30),type='response')
+# 1 
+# 0.9686946   => 0.97의 확률로 1,폭발
+
+
