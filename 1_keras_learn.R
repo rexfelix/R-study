@@ -1,4 +1,8 @@
 library(keras)
+library(tensorflow)
+
+gpu <- tf$config$experimental$get_visible_devices('GPU')[[1]]
+tf$config$experimental$set_memory_growth(device = gpu, enable = TRUE)
 
 mnist <- dataset_mnist()
 x_train <- mnist$train$x
@@ -6,8 +10,10 @@ y_train <- mnist$train$y
 x_test <- mnist$test$x
 y_test <- mnist$test$y
 
-x_train <- array_reshape(x_train,c(nrow(x_train), 784)) / 255
-x_test <- array_reshape(x_test,c(nrow(x_ttest), 784)) / 255
+x_train <- array_reshape(x_train,c(nrow(x_train), 784)) 
+x_train <- x_train/255
+x_test <- array_reshape(x_test,c(nrow(x_test), 784)) 
+x_test <- x_test/255
 y_train <- to_categorical(y_train,10)
 y_test <- to_categorical(y_test,10)
 
@@ -29,5 +35,10 @@ model %>% fit(
   validation_split=0.2
 )
 
-model %>% evaluate(x_test,y_test)
+pred <- model %>% evaluate(x_test,y_test)
+pred
 model %>% predict_classes(x_test)
+
+
+
+summary(model)
