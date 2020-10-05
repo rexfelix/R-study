@@ -56,3 +56,8 @@ nrow(df)
 dim(df)
 df$y
 ls()
+
+vec <- 1:18
+vm <- matrix(vec, nrow=3, byrow=T)
+va <- array(vec,c(3,3,2))
+dim(va)
